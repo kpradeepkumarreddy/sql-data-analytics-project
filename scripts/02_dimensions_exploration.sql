@@ -12,6 +12,8 @@ SQL Functions Used:
 */
 
 -- Retrieve a list of unique countries from which customers originate
+SELECT DISTINCT country FROM datawarehouse_analytics.dim_customers ORDER BY country;
 
 
 -- Retrieve a list of unique categories, subcategories, and products
+SELECT DISTINCT category, subcategory, product_name FROM datawarehouse_analytics.dim_products ORDER BY category, subcategory, product_name;
