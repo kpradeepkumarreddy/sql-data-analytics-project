@@ -61,3 +61,27 @@ CREATE TABLE fact_sales(
 	price int 
 );
 
+TRUNCATE TABLE dim_customers;
+LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/dim_customers.csv"
+INTO TABLE dim_customers
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+
+TRUNCATE TABLE dim_products;
+LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/dim_products.csv"
+INTO TABLE dim_products
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+TRUNCATE TABLE fact_sales;
+LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/fact_sales.csv"
+INTO TABLE fact_sales
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+-- SELECT * FROM dim_customers LIMIT 100;
+-- SELECT * FROM dim_products LIMIT 100;
+-- SELECT * FROM fact_sales LIMIT 100;
+
+-- SHOW VARIABLES LIKE 'local_infile'; -- to enable load data local infile on server side
