@@ -1,6 +1,6 @@
 /*
 =============================================================
-			Create Database and Schemas
+			Create Database and tables
 =============================================================
 Script Purpose:
     This script creates a new database named 'DataWarehouseAnalytics' after checking if it already exists. 
@@ -31,6 +31,11 @@ CREATE TABLE dim_customers(
 	create_date date
 );
 
+LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/dim_customers.csv"
+INTO TABLE dim_customers
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
 
 DROP TABLE IF EXISTS dim_products;
 CREATE TABLE dim_products(
@@ -47,6 +52,11 @@ CREATE TABLE dim_products(
 	start_date date
 );
 
+LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/dim_products.csv"
+INTO TABLE dim_products
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
 
 DROP TABLE IF EXISTS fact_sales;
 CREATE TABLE fact_sales(
@@ -61,27 +71,30 @@ CREATE TABLE fact_sales(
 	price int 
 );
 
-TRUNCATE TABLE dim_customers;
-LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/dim_customers.csv"
-INTO TABLE dim_customers
-FIELDS TERMINATED BY ','
-IGNORE 1 ROWS;
-
-
-TRUNCATE TABLE dim_products;
-LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/dim_products.csv"
-INTO TABLE dim_products
-FIELDS TERMINATED BY ','
-IGNORE 1 ROWS;
-
-TRUNCATE TABLE fact_sales;
-LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/fact_sales.csv"
+LOAD DATA LOCAL INFILE '/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/fact_sales.csv'
 INTO TABLE fact_sales
 FIELDS TERMINATED BY ','
-IGNORE 1 ROWS;
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(
+    order_number,
+    product_key,
+    customer_key,
+    @order_date,
+    @shipping_date,
+    @due_date,
+    sales_amount,
+    quantity,
+    price
+)
+SET
+    order_date    = NULLIF(@order_date, ''),
+    shipping_date = NULLIF(@shipping_date, ''),
+    due_date      = NULLIF(@due_date, '');
+
 
 -- SELECT * FROM dim_customers LIMIT 100;
 -- SELECT * FROM dim_products LIMIT 100;
 -- SELECT * FROM fact_sales LIMIT 100;
 
--- SHOW VARIABLES LIKE 'local_infile'; -- to enable 'LOAD DATA LOCAL INFILE' on server side
+-- SHOW VARIABLES LIKE 'local_infile'; -- to enable load data local infile on server side
