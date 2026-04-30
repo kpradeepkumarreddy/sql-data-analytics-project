@@ -34,17 +34,17 @@ CREATE TABLE dim_customers(
 
 DROP TABLE IF EXISTS dim_products;
 CREATE TABLE dim_products(
-	product_key int ,
-	product_id int ,
-	product_number varchar(50) ,
-	product_name varchar(50) ,
-	category_id varchar(50) ,
-	category varchar(50) ,
-	subcategory varchar(50) ,
-	maintenance varchar(50) ,
+	product_key int,
+	product_id int,
+	product_number varchar(50),
+	product_name varchar(50),
+	category_id varchar(50),
+	category varchar(50),
+	subcategory varchar(50),
+	maintenance varchar(50),
 	cost int,
 	product_line varchar(50),
-	start_date date 
+	start_date date
 );
 
 
@@ -84,4 +84,4 @@ IGNORE 1 ROWS;
 -- SELECT * FROM dim_products LIMIT 100;
 -- SELECT * FROM fact_sales LIMIT 100;
 
--- SHOW VARIABLES LIKE 'local_infile'; -- to enable load data local infile on server side
+-- SHOW VARIABLES LIKE 'local_infile'; -- to enable 'LOAD DATA LOCAL INFILE' on server side
