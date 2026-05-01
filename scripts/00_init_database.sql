@@ -1,6 +1,6 @@
 /*
 =============================================================
-			Create Database and tables
+			Create a database and tables
 =============================================================
 Script Purpose:
     This script creates a new database named 'DataWarehouseAnalytics' after checking if it already exists. 
@@ -71,7 +71,7 @@ CREATE TABLE fact_sales(
 	price int 
 );
 
-LOAD DATA LOCAL INFILE '/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/fact_sales.csv'
+LOAD DATA LOCAL INFILE "/Users/pradeep/Documents/sql-practice/datawarehouse-analytics/datasets/fact_sales.csv"
 INTO TABLE fact_sales
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
